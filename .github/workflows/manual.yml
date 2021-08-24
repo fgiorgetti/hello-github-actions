@@ -1,0 +1,18 @@
+name: Manually build and publish qdrouterd nightly image
+on: workflow_dispatch
+jobs:
+  has-changes:
+    name: Verify if qpid-dispatch has changed in the past 24h
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: ./.github/scripts/github-changed-24h.sh
+  build-nightly:
+    name: Publish qdrouterd nightly image
+    needs: has-changes
+    if: ${{ needs.has-changes.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: |
+          echo Build, test and publish nightly image
