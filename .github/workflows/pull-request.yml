@@ -1,0 +1,14 @@
+name: Build and test latest dispatch and proton
+on: pull_request
+jobs:
+  build:
+    name: Build and test latest dispatch and proton
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: |
+          ifconfig
+          ip addr list
+      - uses: ./.github/actions/minikube
+      - run: |
+          echo "IPADDR=${IPADDR}"

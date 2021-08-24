@@ -1,11 +1,11 @@
-name: Runs when pull_requests are merged to master
+name: Build and Publish qdrouterd image
 on:
   push:
     branches:
       - master
 jobs:
   build:
-    name: Do something when PR merged
+    name: Publish qdrouterd image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
