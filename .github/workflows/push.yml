@@ -11,6 +11,6 @@ jobs:
       - uses: actions/checkout@v1
       - run: |
           echo Merged to ${GITHUB_REF}
-          echo "${{ env.NAME }} - NAME is a secret defined on github as a repository secret"
+          echo "${#NAME} - NAME is a secret defined on github as a repository secret"
         env:
           NAME: '${{ secrets.NAME }}'
