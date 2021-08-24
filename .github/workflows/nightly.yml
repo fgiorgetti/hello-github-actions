@@ -12,9 +12,8 @@ jobs:
       - run: ./.github/scripts/github-changed-24h.sh
   build-nightly:
     name: Publish qdrouterd nightly image
-    if: ${{ success() }}
-    needs:
-      - has-changes
+    needs: has-changes
+    if: ${{ needs.has-changes.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
