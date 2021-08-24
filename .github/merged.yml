@@ -1,0 +1,13 @@
+name: Runs when pull_requests are merged to master
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: Do something when PR merged
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: |
+          echo Merged to ${GITHUB_REF}
