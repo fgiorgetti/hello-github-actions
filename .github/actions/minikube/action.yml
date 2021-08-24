@@ -12,6 +12,9 @@ runs:
       shell: bash
       run: |
         curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+    - id: install-conntrack
+      shell: bash
+      run: sudo apt-get install -y conntrack
     - id: install-minikube
       shell: bash
       run: |
