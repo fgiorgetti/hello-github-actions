@@ -13,4 +13,4 @@ jobs:
           echo Merged to ${GITHUB_REF}
           echo "${NAME} - NAME is a secret defined on github"
         env:
-          NAME: ${{ secrets.NAME }}
+          NAME: ${{ secrets.CI.NAME }}
