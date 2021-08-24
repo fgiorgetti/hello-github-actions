@@ -10,7 +10,6 @@ jobs:
   build-nightly:
     name: Publish qdrouterd nightly image
     needs: has-changes
-    if: ${{ needs.has-changes.result == 'failure' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
