@@ -1,8 +1,8 @@
 name: Build and Publish qdrouterd image
 on:
   schedule:
-    - cron: '* * * * *'
-    # - cron: '0 0 * * *'
+    # - cron: '* * * * *'
+    - cron: '0 0 * * *'
 jobs:
   has-changes:
     name: Verify if qpid-dispatch has changed in the past 24h
