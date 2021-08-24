@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: ./.github/scripts/github-changed-24h.sh || true
+      - run: ./.github/scripts/github-changed-24h.sh
   build-nightly:
     name: Publish qdrouterd nightly image
     needs: has-changes
