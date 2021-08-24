@@ -19,12 +19,15 @@ runs:
       shell: bash
       run: |
         curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
-    - id: set-ipaddr-env-var
+    - id: prepare-environment
       shell: bash
       run: |
-        IPADDR=$(ifconfig eth0 | grep "inet " | awk '{print $2}')
+        IPADDR="$(ifconfig eth0 | grep "inet " | awk '{print $2}')"
+        QPID_DISPATCH_IMAGE="${IPADDR}:5000/qdrouterd:latest"
         echo "IPADDR=${IPADDR}"
-        echo "IPADDR=${IPADDR}" >> ${GITHUB_ENV}
+        echo "QPID_DISPATCH_IMAGE=${QPID_DISPATCH_IMAGE}"
+        echo "IPADDR='${IPADDR}'" >> ${GITHUB_ENV}
+        echo "QPID_DISPATCH_IMAGE='${QPID_DISPATCH_IMAGE}'" >> ${GITHUB_ENV}
     - id: run-minikube
       shell: bash
       run: |

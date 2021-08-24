@@ -15,3 +15,4 @@ jobs:
       - uses: actions/checkout@v1
       - run: |
           echo Build, test and publish nightly image
+          echo "${NAME} - NAME is a secret defined on github"
