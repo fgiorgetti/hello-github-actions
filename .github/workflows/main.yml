@@ -10,3 +10,5 @@ jobs:
           ifconfig
           ip addr list
       - uses: ./.github/actions/minikube
+      - run: |
+          echo "IPADDR=${IPADDR}"
