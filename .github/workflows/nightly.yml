@@ -1,8 +1,8 @@
 name: Build and Publish qdrouterd nightly image
 on:
   schedule:
-    # - cron: '* * * * *'
-    - cron: '0 0 * * *'
+    - cron: '* * * * *'
+    # - cron: '0 0 * * *'
 jobs:
   has-changes:
     name: Verify if qpid-dispatch has changed in the past 24h
@@ -13,6 +13,8 @@ jobs:
   build-nightly:
     name: Publish qdrouterd nightly image
     if: ${{ success() }}
+    needs:
+      - has-changes
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
