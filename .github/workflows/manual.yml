@@ -17,3 +17,5 @@ jobs:
       - run: |
           echo Build, test and publish nightly image
           echo "${NAME} - NAME is a secret defined on github"
+        env:
+          NAME: ${{ secrets.NAME }}
