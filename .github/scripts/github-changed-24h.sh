@@ -11,7 +11,7 @@ LAST_COMMIT_TIMESTAMP=`date -u -d "${LAST_COMMIT}" +%s`
 NOW_TIMESTAMP=`date -u +%s`
 ELAPSED_SECS=$((NOW_TIMESTAMP - LAST_COMMIT_TIMESTAMP))
 
-if [[ ${ELAPSED_SECS} -lt 86400 ]]; then
+if [[ ${ELAPSED_SECS} -lt 186400 ]]; then
     echo "Last commit happened in the past 24h: ${LAST_COMMIT}"
     echo "::set-output name=changed::true"
 else
