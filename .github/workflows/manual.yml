@@ -12,11 +12,12 @@ jobs:
   build-nightly:
     name: Publish qdrouterd nightly image
     needs: has-changes
-    if: ${{ needs.has-changes.outputs.changed == 'true' }}
+    if: ${{ needs.has-changes.outputs.changed != 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - run: |
+          echo "Changed: ${{needs.has-changes.outputs.changed}}"
           echo Build, test and publish nightly image
           echo "${NAME} - NAME is a secret defined on github"
         env:
