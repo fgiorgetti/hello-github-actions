@@ -1,7 +1,7 @@
 name: Manually build and publish qdrouterd nightly image
 on: workflow_dispatch
 jobs:
-  has_changes:
+  has-changes:
     name: Verify if qpid-dispatch has changed in the past 24h
     runs-on: ubuntu-latest
     outputs:
