@@ -13,7 +13,7 @@ jobs:
   build-nightly:
     name: Publish qdrouterd nightly image
     needs: has-changes
-    if: ${{ needs.has-changes.outputs.changed != 'true' }}
+    if: ${{ needs.has-changes.outputs.changed == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
