@@ -1,0 +1,37 @@
+name: Manually build and publish qdrouterd image with inputs
+on:
+  workflow_dispatch:
+    inputs:
+      routerSourceUrl:
+        description: 'Qpid Dispatch Router source code url that returns a tar ball for a given branch'
+        required: true
+        default: 'http://github.com/apache/qpid-dispatch/archive/main.tar.gz'
+      protonSourceUrl:
+        description: 'Qpid Proton source code url that returns a tar ball for a given branch'
+        required: true
+        default: 'http://github.com/apache/qpid-proton/archive/main.tar.gz'
+      dockerTag:
+        description: 'Docker tag to use for the qdrouterd image'
+        required: true
+        default: 'custom'
+jobs:
+  build-manual:
+    name: Build and publish qdrouterd image
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          # validate DOCKER_TAG
+          [[ ! "${DOCKER_TAG}" =~ ^[a-z0-9][a-z0-9.-]+[a-z0-9]$ ]] && echo "invalid tag - it must begin and end with letter or digit and contains - and ." && exit 1
+          protected=(latest nightly master)
+          for ptag in ${protected[@]}; do
+            if [[ "${ptag}" = "${DOCKER_TAG}" ]]; then
+              echo "${ptag} cannot be used (protected tag)"
+              exit 1
+            fi
+          done
+        env:
+          DOCKER_TAG: '${{dockerTag}}'
+      - run: |
+          echo ROUTER_SOURCE_URL=${{routerSourceUrl}}
+          echo PROTON_SOURCE_URL=${{protonSourceUrl}}
+          echo DOCKER_TAG=${{dockerTag}}
