@@ -30,8 +30,8 @@ jobs:
             fi
           done
         env:
-          DOCKER_TAG: '${{dockerTag}}'
+          DOCKER_TAG: '${{github.event.inputs.dockerTag}}'
       - run: |
-          echo ROUTER_SOURCE_URL=${{routerSourceUrl}}
-          echo PROTON_SOURCE_URL=${{protonSourceUrl}}
-          echo DOCKER_TAG=${{dockerTag}}
+          echo ROUTER_SOURCE_URL=${{github.event.inputs.routerSourceUrl}}
+          echo PROTON_SOURCE_URL=${{github.event.inputs.protonSourceUrl}}
+          echo DOCKER_TAG=${{github.event.inputs.dockerTag}}
