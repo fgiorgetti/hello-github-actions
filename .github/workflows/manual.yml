@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - run: |
+          echo "Always fail"
+          exit 1
       - run: ./.github/scripts/github-changed-24h.sh
         id: changed-24h
   build-nightly:
