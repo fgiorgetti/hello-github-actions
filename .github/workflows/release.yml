@@ -25,6 +25,6 @@ jobs:
             Changes in this Release
             - TBD
             - TBD
-            - https://github.com/fgiorgetti/hello-github-actions/issues?q=is:issue%20milestone:${{RELEASE_VERSION}}
+            - https://github.com/fgiorgetti/hello-github-actions/issues?q=is:issue%20milestone:${{github.ref_name}}
           draft: true
           prerelease: false
