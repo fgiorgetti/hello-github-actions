@@ -26,5 +26,6 @@ jobs:
             - TBD
             - TBD
             - https://github.com/fgiorgetti/hello-github-actions/issues?q=is:issue%20milestone:${{github.ref_name}}
+            - https://github.com/fgiorgetti/hello-github-actions/issues?q=is:issue%20milestone:${{env.RELEASE_VERSION}}
           draft: true
           prerelease: false
