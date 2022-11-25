@@ -6,8 +6,10 @@ on:
 jobs:
   build:
     name: Podman on fedora
-    runs-on: fc-os
+    runs-on: ubuntu
     steps:
       - uses: actions/checkout@v2
       - run: |
+          sudo apt -y update
+          sudo apt -y install podman
           podman version
