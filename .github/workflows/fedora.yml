@@ -1,0 +1,13 @@
+name: Trying podman on a fedora vm
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: Podman on fedora
+    runs-on: fc-os
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          podman version
