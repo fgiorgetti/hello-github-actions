@@ -1,15 +1,17 @@
-name: Trying podman on a fedora vm
+name: Trying podman on a vm
 on:
   push:
     branches:
       - master
 jobs:
   build:
-    name: Podman on fedora
+    name: Podman
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: |
           sudo apt -y update
+      - run: |
           sudo apt -y install podman
+      - run: |
           podman version
