@@ -38,3 +38,5 @@ jobs:
           podman version
 
           systemctl --user list-units
+          systemctl --user start podman.socket
+          systemctl --user status podman.socket
