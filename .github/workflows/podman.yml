@@ -36,3 +36,5 @@ jobs:
           sudo apt-get -y install podman
   
           podman version
+
+          systemctl --user list-units
