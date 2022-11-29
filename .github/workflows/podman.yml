@@ -18,4 +18,5 @@ jobs:
       - run: |
           git clone -b podman https://github.com/fgiorgetti/skupper
           cd skupper
+          make generate-client
           go test -count=1 -v -tags=podman ./pkg/domain/podman/... -use-cluster
