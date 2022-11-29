@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Disable selinux
-        run: |
-          sudo sed -i 's/enforcing/disabled/g' /etc/selinux/config /etc/selinux/config
       - uses: actions/setup-go@v2
         with:
           go-version: '1.17'
@@ -27,7 +24,6 @@ jobs:
           make generate-client
       - name: Skupper Podman System Tests
         run: |
+          podman unshare
           cd skupper
-          # disabling selinux
-          setenforce 0
           go test -count=1 -v -tags=podman ./pkg/domain/podman/... -use-cluster
