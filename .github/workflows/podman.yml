@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Disable selinux
+        run: |
+          sudo setenforce 0
       - uses: actions/setup-go@v2
         with:
           go-version: '1.17'
