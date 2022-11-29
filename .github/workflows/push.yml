@@ -2,7 +2,7 @@ name: Build and Publish qdrouterd image
 on:
   push:
     branches:
-      - master
+      - master-disabled
 jobs:
   build:
     name: Publish qdrouterd image
