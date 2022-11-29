@@ -24,6 +24,4 @@ jobs:
           make generate-client
       - name: Skupper Podman System Tests
         run: |
-          podman unshare
-          cd skupper
-          go test -count=1 -v -tags=podman ./pkg/domain/podman/... -use-cluster
+          cd skupper && podman unshare go test -count=1 -v -tags=podman ./pkg/domain/podman/... -use-cluster
