@@ -32,9 +32,6 @@ runs:
         sudo apt-get -y upgrade
         sudo apt-get -y install podman
 
-        # Migrating version
-        podman system migrate
-
         # Displaying podman version
         podman version
     - id: run-podman-socket
