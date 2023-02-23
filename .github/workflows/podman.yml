@@ -1,5 +1,4 @@
 name: Podman system tests
-on:
 jobs:
   build:
     name: Podman
