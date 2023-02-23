@@ -1,8 +1,7 @@
 name: Podman system tests
 on:
   push:
-    branches:
-      - master
+    branches: []
   pull_request:
 jobs:
   build:
