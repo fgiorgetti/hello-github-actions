@@ -1,4 +1,7 @@
 name: Podman system tests
+on:
+  branches:
+    - master
 jobs:
   build:
     name: Podman
