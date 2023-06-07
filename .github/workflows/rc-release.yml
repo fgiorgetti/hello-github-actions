@@ -13,7 +13,7 @@ jobs:
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - run: |
           echo ${RELEASE_VERSION}
-          export BUILD_NUMBER=$((`curl -s https://quay.io/v2/skupper/skupper-router/tags/list | jq .tags | grep -E "\"${VERSION}-[0-9]+\"" | wc -l || echo 0` + 1))`
+          export BUILD_NUMBER=$((`curl -s https://quay.io/v2/skupper/skupper-router/tags/list | jq .tags | grep -E "\"${RELEASE_VERSION}-[0-9]+\"" | wc -l || echo 0` + 1))`
           ./.github/scripts/image.sh
 #      - name: Create Release
 #        id: create_release
