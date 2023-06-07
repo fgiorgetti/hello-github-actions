@@ -1,1 +1,1 @@
-echo "docker tag image:${RELEASE_VERSION} image:${PROJECT_TAG}-${BUILD_NUMBER}
+echo "docker tag image:${RELEASE_VERSION} image:${PROJECT_TAG}-${BUILD_NUMBER}"
