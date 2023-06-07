@@ -2,7 +2,7 @@ name: Release Candidate when version tag pushed
 on: 
   push:
     tags:
-      - '[0-9]+.[0-9]+.[0-9]+-rc[0-9]+*'
+      - '[0-9]+.[0-9]+.[0-9]+-rc[0-9]+'
 jobs:
   build:
     name: Print respective tag
@@ -13,6 +13,8 @@ jobs:
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - run: |
           echo ${RELEASE_VERSION}
+          export BUILD_NUMBER=$((`curl -s https://quay.io/v2/skupper/skupper-router/tags/list | jq .tags | grep -E "\"${VERSION}-[0-9]+\"" | wc -l || echo 0` + 1))`
+          ./.github/scripts/image.sh
 #      - name: Create Release
 #        id: create_release
 #        uses: actions/create-release@v1
