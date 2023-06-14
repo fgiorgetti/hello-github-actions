@@ -30,3 +30,6 @@ jobs:
             - https://github.com/fgiorgetti/hello-github-actions/issues?q=is:issue%20milestone:${RELEASE_VERSION}
           draft: true
           prerelease: false
+      - name: Show build number
+        run: |
+          echo "BUILD_NUMBER=${BUILD_NUMBER}"
