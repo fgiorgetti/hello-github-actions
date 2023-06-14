@@ -14,10 +14,12 @@ jobs:
       - run: |
           echo ${RELEASE_VERSION}
           export BUILD_NUMBER=$((`curl -s https://quay.io/api/v1/repository/skupper/skupper-router/tag/?filter_tag_name=like:${RELEASE_VERSION} | jq .tags[].name | grep -E "\"${RELEASE_VERSION}-[0-9]+\"" | wc -l || echo 0` + 1))
+          echo "BUILD_NUMBER=${BUILD_NUMBER}" >> $GITHUB_ENV
           ./.github/scripts/image.sh
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
+        if: env.BUILD_NUMBER == '1'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
