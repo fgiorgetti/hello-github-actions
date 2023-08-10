@@ -12,6 +12,7 @@ jobs:
         run: |
           sudo apt -y update
           sudo apt -y install podman
+          podman version
 #      - uses: actions/checkout@v2
 #        with:
 #          path: ./my-checkout-path
