@@ -14,9 +14,13 @@ jobs:
         run: echo "RELEASE_VERSION=${{github.event.inputs.tag}}" >> $GITHUB_ENV
       - name: Verify a valid tag has been provided
         run: |
+          echo OK1
           echo "${RELEASE_VERSION}" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+' || { echo "A valid tag is expected"; exit 1; }
+          echo OK2
           export LAST_BUILD_NUMBER=$(curl -s https://quay.io/api/v1/repository/skupper/skupper-router/tag/?filter_tag_name=like:${RELEASE_VERSION} | jq .tags[].name | grep -E "\"${RELEASE_VERSION}-[0-9]+\"" | wc -l || echo 0)
+          echo OK3
           [[ ${LAST_BUILD_NUMBER} -eq 0 ]] && { echo "No reference to tag ${RELEASE_VERSION} has been found"; exit 1; }
+          echo OK4
       - name: Valid release provided
         run: |
           echo ${RELEASE_VERSION}
