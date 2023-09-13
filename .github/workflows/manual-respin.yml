@@ -1,0 +1,18 @@
+name: Respin images for a released tag
+on: 
+  workflow_dispatch:
+jobs:
+  build:
+    name: Print respective tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Identify version
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Verify a valid tag has been provided
+        run: |
+          echo "${RELEASE_VERSION}" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+' || { echo "A valid tag is expected"; exit 1; }
+          export LAST_BUILD_NUMBER=$(curl -s https://quay.io/api/v1/repository/skupper/skupper-router/tag/?filter_tag_name=like:${RELEASE_VERSION} | jq .tags[].name | grep -E "\"${RELEASE_VERSION}-[0-9]+\"" | wc -l || echo 0)
+          [[ ${LAST_BUILD_NUMBER} -eq 0 ]] && { echo "No reference to tag ${RELEASE_VERSION} has been found"; exit 1; }
+      - run: |
+          echo ${RELEASE_VERSION}
