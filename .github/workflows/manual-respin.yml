@@ -1,5 +1,11 @@
 name: Respin images for a released tag
 on: 
+  push:
+    # Sequence of patterns matched against tags
+    # Right now, we run this job automatically when a semantically versioned
+    # tag is pushed.
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
   workflow_dispatch:
     inputs:
       tag:
@@ -11,16 +17,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Identify version
-        run: echo "RELEASE_VERSION=${{github.event.inputs.tag}}" >> $GITHUB_ENV
-      - name: Verify a valid tag has been provided
         run: |
-          echo "${RELEASE_VERSION}" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+' || { echo "A valid tag is expected"; exit 1; }
-          export LAST_BUILD_NUMBER=$(curl -s https://quay.io/api/v1/repository/skupper/skupper-router/tag/?filter_tag_name=like:${RELEASE_VERSION} | jq .tags[].name | grep -E "\"${RELEASE_VERSION}-[0-9]+\"" | wc -l || echo 0)
-          [[ ${LAST_BUILD_NUMBER} -eq 0 ]] && { echo "No reference to tag ${RELEASE_VERSION} has been found"; exit 1; }
-          echo "Valid tag provided: ${RELEASE_VERSION}"
-      - name: Valid release provided
-        run: |
-          echo ${RELEASE_VERSION}
+          if [ -z "${{github.event.inputs.tag}}" ]; then
+            echo "CONTAINER_TAG=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
+          else
+            #echo "${{github.event.inputs.tag}}" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+' || { echo "A valid tag is expected"; exit 1; }
+            #export LAST_BUILD_NUMBER=$(curl -s https://quay.io/api/v1/repository/skupper/skupper-router/tag/?filter_tag_name=like:${{github.event.inputs.tag}} | jq .tags[].name | grep -E "\"${{github.event.inputs.tag}}-[0-9]+\"" | wc -l || echo 0)
+            #[[ ${LAST_BUILD_NUMBER} -eq 0 ]] && { echo "No reference to tag ${{github.event.inputs.tag}} has been found"; exit 1; }
+            echo "CONTAINER_TAG=${{github.event.inputs.tag}}" >> $GITHUB_ENV
+          fi
       - uses: actions/checkout@v2
         with:
-          ref: ${{github.event.inputs.tag}}
+          ref: ${CONTAINER_TAG}
+#      - name: Verify a valid tag has been provided
+#        run: |
+          #echo "${CONTAINER_TAG}" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+' || { echo "A valid tag is expected"; exit 1; }
+          #export LAST_BUILD_NUMBER=$(curl -s https://quay.io/api/v1/repository/skupper/skupper-router/tag/?filter_tag_name=like:${CONTAINER_TAG} | jq .tags[].name | grep -E "\"${CONTAINER_TAG}-[0-9]+\"" | wc -l || echo 0)
+          #[[ ${LAST_BUILD_NUMBER} -eq 0 ]] && { echo "No reference to tag ${CONTAINER_TAG} has been found"; exit 1; }
+          #echo "Valid tag provided: ${CONTAINER_TAG}"
+      - name: Valid release provided
+        run: |
+          echo ${CONTAINER_TAG}
