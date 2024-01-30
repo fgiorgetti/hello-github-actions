@@ -8,11 +8,20 @@ jobs:
     name: Podman
     runs-on: ubuntu-latest
     steps:
-      - name: Install latest podman
+      - name: Setting an environment variable to validate if it is available between jobs
+        run:  |
+          echo "CONTAINER_TAG=1.0.0-sample-tag" >> $GITHUB_ENV
+      - name: verify tag
         run: |
-          sudo apt -y update
-          sudo apt -y install podman
-          podman version
+          echo "${CONTAINER_TAG}"
+  build-two:
+    name: Podman two
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: verify tag
+        run: |
+          echo "${CONTAINER_TAG}"
 #      - uses: actions/checkout@v2
 #        with:
 #          path: ./my-checkout-path
