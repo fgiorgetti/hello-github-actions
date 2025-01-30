@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Start minikube
         uses: medyagh/setup-minikube@latest
+        with:
+          addons: ingress
       - name: Try the cluster!
         run: kubectl get pods -A
       - name: Create a lb service
