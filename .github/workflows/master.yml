@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Minikube
-        uses: minikube
+        uses: ./.github/actions/minikube
       - name: Try the cluster!
         run: kubectl get pods -A
       - name: Create a lb service
