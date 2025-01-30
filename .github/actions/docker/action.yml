@@ -1,0 +1,19 @@
+name: "Install docker"
+description: "Install latest available version of docker"
+author: "skupper@googlegroups.com"
+runs:
+  using: "composite"
+  steps:
+    - id: docker-install
+      name: Installing docker
+      shell: bash
+      run: |
+        sudo apt-get -y install docker.io
+        sudo systemctl --now docker
+        sudo systemctl --now docker.socket
+        sudo usermod -a -G runner docker
+    - id: docker-version
+      name: Docker version
+      shell: bash
+      run: |
+        docker version

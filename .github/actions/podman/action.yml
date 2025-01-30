@@ -8,7 +8,9 @@ runs:
       name: Installing podman
       shell: bash
       run: |
-        apt-get -y install podman
+        sudo apt-get -y install podman
+        systemctl --user enable --now podman
+        systemctl --user enable --now podman.socket
     - id: podman-version
       name: Podman version
       shell: bash

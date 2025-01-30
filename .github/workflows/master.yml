@@ -13,6 +13,8 @@ jobs:
         uses: ./.github/actions/minikube
       - name: Podman
         uses: ./.github/actions/podman
+      - name: Docker
+        uses: ./.github/actions/docker
       - name: Try the cluster!
         run: kubectl get pods -A
       - name: Create a lb service
