@@ -8,8 +8,6 @@ runs:
       name: Installing docker
       shell: bash
       run: |
-        sudo apt-get -y remove containerd.io
-        sudo apt-get -y install docker.io
         sudo systemctl enable --now docker
         sudo systemctl enable --now docker.socket
         sudo usermod -a -G docker "$USER"
