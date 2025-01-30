@@ -8,6 +8,7 @@ jobs:
     name: Sample job
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Minikube
         uses: ./.github/actions/minikube
       - name: Try the cluster!
