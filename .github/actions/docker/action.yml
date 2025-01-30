@@ -8,10 +8,11 @@ runs:
       name: Installing docker
       shell: bash
       run: |
+        sudo apt-get -y remove containerd.io
         sudo apt-get -y install docker.io
         sudo systemctl --now docker
         sudo systemctl --now docker.socket
-        sudo usermod -a -G runner docker
+        sudo usermod -a -G "$USER" docker
     - id: docker-version
       name: Docker version
       shell: bash
