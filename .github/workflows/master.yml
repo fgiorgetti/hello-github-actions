@@ -9,6 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          path: ./ansible_collections/skupper/v2
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13' 
+          cache: 'pip'
+      - name: Testing python dep
+        run: |
+          pip install kubernetes
+          python --version
+          python -c 'import kubernetes'
       - name: Build skupper-router
         uses: ./.github/actions/build-router
       - name: Minikube
