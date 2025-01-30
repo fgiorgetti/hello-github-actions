@@ -8,11 +8,8 @@ jobs:
     name: Sample job
     runs-on: ubuntu-latest
     steps:
-      - name: Start minikube
-        uses: medyagh/setup-minikube@latest
-      - name: Minikube tunnel
-        run: |
-          minikube tunnel &
+      - name: Minikube
+        uses: minikube
       - name: Try the cluster!
         run: kubectl get pods -A
       - name: Create a lb service
