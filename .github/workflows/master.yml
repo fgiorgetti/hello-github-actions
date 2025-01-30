@@ -1,0 +1,18 @@
+name: Build and Publish qdrouterd image
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: Sample job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start minikube
+        uses: medyagh/setup-minikube@latest
+      - name: Try the cluster!
+        run: kubectl get pods -A
+      - name: Create a lb service
+        run: kubectl create service loadbalancer sample --tcp=8080
+      - name: Check service ip
+        run: kubectl wait --for=jsonpath='{.status.loadBalancer.ingress}' service/sample

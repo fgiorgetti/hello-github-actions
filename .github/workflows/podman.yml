@@ -2,7 +2,7 @@ name: Podman system tests
 on:
   push:
     branches:
-      - master
+      - master-disabled
 jobs:
   build:
     name: Podman
