@@ -1,0 +1,16 @@
+name: "Install podman"
+description: "Install latest available version of podman"
+author: "skupper@googlegroups.com"
+runs:
+  using: "composite"
+  steps:
+    - id: podman-install
+      name: Installing podman
+      shell: bash
+      run: |
+        apt-get -y install podman
+    - id: podman-version
+      name: Podman version
+      shell: bash
+      run: |
+        podman version

@@ -11,9 +11,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Minikube
         uses: ./.github/actions/minikube
+      - name: Podman
+        uses: ./.github/actions/podman
       - name: Try the cluster!
         run: kubectl get pods -A
       - name: Create a lb service
         run: kubectl create service loadbalancer sample --tcp=8080
       - name: Check service ip
-        run: kubectl wait --for=jsonpath='{.status.loadBalancer.ingress}' service/sample
+        run: |
+          kubectl wait --for=jsonpath='{.status.loadBalancer.ingress}' service/sample
+          kubectl get -o wide service/sample
