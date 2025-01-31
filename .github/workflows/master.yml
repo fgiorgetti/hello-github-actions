@@ -21,6 +21,15 @@ jobs:
           pip install kubernetes
           python --version
           python -c 'import kubernetes'
+      - name: Clone and fake run integration tests
+        run: |
+          mkdir -p ansible_collections/skupper
+          cd ansible_collections/skupper
+          git clone https://github.com/skupperproject/skupper-ansible v2
+          cd v2
+          git checkout v2-dev
+          pip3 install -U yamllint ansible ansible-lint virtualenv kubernetes PyYAML
+          make integration
       - name: Build skupper-router
         uses: ./.github/actions/build-router
       - name: Minikube
