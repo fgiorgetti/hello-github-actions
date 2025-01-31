@@ -8,38 +8,16 @@ jobs:
     name: Sample job
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Generate some output to be archived
+        run: |
+          mkdir output
+          echo "my first data file" > output/data.txt
+          echo "my second data file" > output/data2.txt
+          echo "bad data - do not archive" > output/data.bad
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v4
         with:
-          cache: 'pip'
-      - name: Testing python dep
-        run: |
-          pip install kubernetes
-          python --version
-          python -c 'import kubernetes'
-      - name: Clone and fake run integration tests
-        run: |
-          mkdir -p ansible_collections/skupper
-          cd ansible_collections/skupper
-          git clone https://github.com/skupperproject/skupper-ansible v2
-          cd v2
-          git checkout v2-dev
-          pip3 install -U yamllint ansible ansible-lint virtualenv kubernetes PyYAML
-          make integration
-      - name: Build skupper-router
-        uses: ./.github/actions/build-router
-      - name: Minikube
-        uses: ./.github/actions/minikube
-      - name: Docker
-        uses: ./.github/actions/docker
-      - name: Podman
-        uses: ./.github/actions/podman
-      - name: Try the cluster!
-        run: kubectl get pods -A
-      - name: Create a lb service
-        run: kubectl create service loadbalancer sample --tcp=8080
-      - name: Check service ip
-        run: |
-          kubectl wait --for=jsonpath='{.status.loadBalancer.ingress}' service/sample
-          kubectl get -o wide service/sample
+          name: output-data
+          path: |
+            output/*
+            !output/*.bad
