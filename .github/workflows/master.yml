@@ -34,9 +34,9 @@ jobs:
           CONTAINER_USER: '${{ secrets.CONTAINER_USER }}'
           CONTAINER_PASSWORD: '${{ secrets.CONTAINER_PASSWORD }}'
         run: |
-          wget https://gist.github.com/fgiorgetti/5991e9eb835f8e5acfee78ee6f969c2b/archive/6dd821628ddbc098d2e617247ae7ea8466a77905.zip
-          unzip 6dd821628ddbc098d2e617247ae7ea8466a77905.zip
-          cd 5991e9eb835f8e5acfee78ee6f969c2b-6dd821628ddbc098d2e617247ae7ea8466a77905
+          wget https://gist.github.com/fgiorgetti/5991e9eb835f8e5acfee78ee6f969c2b/archive/0fa32f484d58e33dc8f15478b3470f1e1e35a401.zip
+          unzip 0fa32f484d58e33dc8f15478b3470f1e1e35a401.zip
+          cd 5991e9eb835f8e5acfee78ee6f969c2b-0fa32f484d58e33dc8f15478b3470f1e1e35a401/
           echo "${CONTAINER_PASSWORD}" | docker login --username "${CONTAINER_USER}" --password-stdin quay.io
           docker buildx create --use
           bash ./build.sh
