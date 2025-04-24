@@ -13,7 +13,7 @@ jobs:
           wget https://gist.github.com/fgiorgetti/5991e9eb835f8e5acfee78ee6f969c2b/archive/6dd821628ddbc098d2e617247ae7ea8466a77905.zip
           unzip 6dd821628ddbc098d2e617247ae7ea8466a77905.zip
           cd 5991e9eb835f8e5acfee78ee6f969c2b-6dd821628ddbc098d2e617247ae7ea8466a77905
-          docker login -u "${CONTAINER_USER}" -p "${CONTAINER_PASSWORD}" quay.io
+          echo "${CONTAINER_PASSWORD}" | docker login quay.io -u "${CONTAINER_USER}" --password-stdin
           ./build.sh
         env:
           CONTAINER_USER: '${{ secrets.DOCKER_USER }}'
