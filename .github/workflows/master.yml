@@ -17,5 +17,5 @@ jobs:
           unzip 6dd821628ddbc098d2e617247ae7ea8466a77905.zip
           cd 5991e9eb835f8e5acfee78ee6f969c2b-6dd821628ddbc098d2e617247ae7ea8466a77905
           echo "${CONTAINER_PASSWORD}" | docker login --username "${CONTAINER_USER}" --password-stdin quay.io
-          ./build.sh
+          sh ./build.sh
 
