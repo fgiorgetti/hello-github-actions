@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     name: Sample job
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Build and publish images using docker buildx
         env:
