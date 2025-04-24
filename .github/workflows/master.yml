@@ -1,4 +1,4 @@
-name: Build and Publish qdrouterd image
+name: Sample workflow
 on:
   push:
     branches:
@@ -8,16 +8,14 @@ jobs:
     name: Sample job
     runs-on: ubuntu-latest
     steps:
-      - name: Generate some output to be archived
+      - name: Build and publish images using docker buildx
         run: |
-          mkdir output
-          echo "my first data file" > output/data.txt
-          echo "my second data file" > output/data2.txt
-          echo "bad data - do not archive" > output/data.bad
-      - name: Archive artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: output-data
-          path: |
-            output/*
-            !output/*.bad
+          wget https://gist.github.com/fgiorgetti/5991e9eb835f8e5acfee78ee6f969c2b/archive/6dd821628ddbc098d2e617247ae7ea8466a77905.zip
+          unzip 6dd821628ddbc098d2e617247ae7ea8466a77905.zip
+          cd 6dd821628ddbc098d2e617247ae7ea8466a77905
+          docker login -u ${CONTAINER_USER} ${CONTAINER_PASSWORD} quay.io
+          ./build.sh
+        env:
+          CONTAINER_USER: '${{ secrets.DOCKER_USER }}'
+          CONTAINER_PASSWORD: '${{ secrets.DOCKER_PASSWORD }}'
+
